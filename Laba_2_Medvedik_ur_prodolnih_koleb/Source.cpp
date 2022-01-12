@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//
+//  parabol
 //
 //using namespace std;
 //const int N = 6, K = 10;
@@ -66,14 +66,7 @@ using namespace std;
 //	}
 //}
 //
-//void vyvod(double Matr[Nm][Nm + 1]) {
-//	for (int i = 0; i < Nm; i++) {
-//		for (int j = 0; j < Nm + 1; j++) {
-//			cout << Matr[i][j] << " ";
-//		}
-//		cout << endl;
-//	}
-//}
+
 //
 //void yavnaya() {
 //	cout << "sigma: " << sigma << endl;
@@ -99,7 +92,65 @@ using namespace std;
 //
 //
 
+//void neyavnaya() {
+//	//неявная схема
+//	//при к=0
+//	for (int i = 0; i <= N; i++) {
+//		U_k[i] = begU(i * h);
+//		if (i == 0) {
+//			U_k[i] = LeftU(0);
+//		}
+//		if (i == N) {
+//			U_k[i] = RightU(0);
+//		}
+//	}
+//
+//	double b = -(1 + 2 * sigma);
+//	for (int k = 1; k <= K; k++) {
+//		for (int i = 1; i <= N - 1; i++) {
+//			double a, c, d;
+//			if (i == 1) {
+//				d = -(U_k[i] + sigma * LeftU(k * teta)); c = sigma;
+//				A[0][0] = b;
+//				A[0][1] = c;
+//				A[0][Nm] = d;
+//			}
+//			else {
+//				if (i == Nm) {
+//					a = sigma;
+//					d = -(U_k[i] + sigma * RightU(k * teta));
+//					A[i - 1][i - 2] = a;
+//					A[i - 1][i - 1] = b;
+//					A[i - 1][Nm] = d;
+//				}
+//				else {
+//					a = sigma;
+//					c = sigma;
+//					d = -U_k[i];
+//					A[i - 1][i - 2] = a;
+//					A[i - 1][i - 1] = b;
+//					A[i - 1][i] = c;
+//					A[i - 1][Nm] = d;
+//				}
+//			}
+//		}
+//		Gauss(0, A);
+//		for (int i = 1; i <= N - 1; i++) {
+//			U_k[i] = A[i - 1][Nm];
+//		}
+//	}
+//	cout << "Neyavnaya: " << endl;
+//	for (int i = 0; i <= N; i++) {
+//		//f1 << i * h << " " << U_k[i] << endl;
+//		cout << i * h << " " << U_k[i] << endl;
+//	}
+//}
+
+
+
 ////////////////////////////////////////////////////////////////////////////
+
+// hiperbol 
 
 using namespace std;
 const int N = 40, K = 100;
@@ -211,8 +262,67 @@ void yavnaya() {
 	}
 	f1.close();
 }
-
-
+//
+//void neyavnaya() {
+//	//неявная схема
+//	//k=0
+//	for (int i = 0; i <= N; i++) {
+//		U_km1[i] = begU(i * h);
+//	}
+//	U_k[0] = LeftU(0);
+//	U_k[N] = RightU(0);
+//	//k=1
+//	for (int i = 0; i <= N; i++) {
+//		U_k[i] = begU(i * h) + dbegU(i * h) * teta;
+//	}
+//	U_k[0] = LeftU(teta);
+//	U_k[N] = RightU(teta);
+//
+//	double b1 = -(1 + 2 * sigma);
+//	for (int k = 2; k <= K; k++) {
+//		for (int i = 1; i <= N - 1; i++) {
+//			double a1, c1, d1;
+//			if (i == 1) {
+//				d1 = U_km1[i] - 2 * U_k[i] - sigma * LeftU(teta * k); c1 = sigma;
+//				A[0][0] = b1;
+//				A[0][1] = c1;
+//				A[0][Nm] = d1;
+//			}
+//			else {
+//				if (i == Nm) {
+//					a1 = sigma;
+//					d1 = U_km1[i] - 2 * U_k[i] - sigma * RightU(teta * k);
+//					A[i - 1][i - 2] = a1;
+//					A[i - 1][i - 1] = b1;
+//					A[i - 1][Nm] = d1;
+//				}
+//				else {
+//					a1 = sigma;
+//					c1 = sigma;
+//					d1 = U_km1[i] - 2 * U_k[i];
+//					A[i - 1][i - 2] = a1;
+//					A[i - 1][i - 1] = b1;
+//					A[i - 1][i] = c1;
+//					A[i - 1][Nm] = d1;
+//				}
+//			}
+//		}
+//		//vyvod(A);
+//		//system("pause");
+//		Gauss(0, A);
+//		for (int j = 1; j <= N - 1; j++) {
+//			U_km1[j] = U_k[j];
+//			U_k[j] = A[j - 1][Nm];
+//		}
+//	}
+//	cout << "Neyavnaya: " << endl;
+//	ofstream f1("giperbol_neyavn.txt", ios_base::trunc);
+//	for (int i = 0; i <= N; i++) {
+//		f1 << i * h << " " << U_k[i] << endl;
+//		cout << i * h << " " << U_k[i] << endl;
+//	}
+//	f1.close();
+//}
 ///////////////////////////////////////
 
 
@@ -220,7 +330,7 @@ int main() {
 	
 	yavnaya();
 
-
+	//neyavnaya();
 
 	return 1;
 }
