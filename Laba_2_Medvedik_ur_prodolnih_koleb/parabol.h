@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 using namespace std;
 const int N = 200, K = 10;
 const int Nm = N - 1;
